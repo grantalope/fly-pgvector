@@ -1,6 +1,7 @@
-ARG PG_MAJOR=16
-FROM postgres:$PG_MAJOR
+ARG PG_MAJOR=15
+FROM flyio/postgres-flex:15.6
 ARG PG_MAJOR
+
 
 COPY . /tmp/pgvector
 
@@ -18,3 +19,6 @@ RUN apt-get update && \
 		apt-get autoremove -y && \
 		apt-mark unhold locales && \
 		rm -rf /var/lib/apt/lists/*
+
+# Copy the SQL script to create the pgvector extension
+COPY create_pgvector_extension.sql /docker-entrypoint-initdb.d/
