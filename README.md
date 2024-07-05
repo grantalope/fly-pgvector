@@ -24,7 +24,7 @@ If you already configured the Fly CLI before, skip to step 3.
 1. Download and install the Fly CLI from the [Fly official website](https://fly.io/docs/getting-started/installing-flyctl/).
 2. Open your terminal and run `flyctl auth signup` to create a new Fly account or `flyctl auth login` to log into an existing account.
 3. Fork this repository and clone it to your local machine. Use the command `git clone git@github.com:<your-account>/fly-pgvector.git` followed by `cd fly-pgvector` to navigate into the project directory.
-4. Create a new Fly Postgres app by running `fly pg`. This command sets up a new Postgres instance on Fly. Note at this stage this is still the base Fly Postgres image instead of the one with pgvector.
+4. Create a new Fly Postgres app by running `fly pg create`. This command sets up a new Postgres instance on Fly. Note at this stage this is still the base Fly Postgres image instead of the one with pgvector.
 5. After setting up your Fly Postgres app, copy the output connection string provided. Store this string securely as you will need it to connect to your database. Consider using a password manager or another secure method to keep this information safe.
 6. Enable GitHub Actions for your repository if not already enabled. Go to your repository on GitHub, click on 'Actions', then select 'set up a workflow yourself' if you haven't done so already. This will allow you to create a new workflow file directly or commit an existing one.
 7. To authenticate your Fly CLI with the Fly platform, you need an API token. You can obtain this token by navigating to your Fly dashboard. Go to the 'Account Settings' and click on 'Access  Tokens'. Create a new token if you don't have one already, and copy it.
