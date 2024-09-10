@@ -3,24 +3,19 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "vector-media-app"
-primary_region = "ord"
+app = 'vector-app-berba'
+primary_region = 'ord'
 
 [build]
 
-[mounts]
-  source = "pg_data"
-  destination = "/data"
+[[mounts]]
+  source = 'pg_data'
+  destination = '/data'
 
-[[services]]
-  internal_port = 5432
-  protocol = "tcp"
-  autostart = true
+[http_service]
+  internal_port = 8080
+  force_https = true
   auto_stop_machines = true
+  auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
-
-  [[services.ports]]
-    port = 5432
-    handlers = ["pg_tls"]
-
+  processes = ['app']
