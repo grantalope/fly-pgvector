@@ -1,5 +1,5 @@
 ARG PG_MAJOR=15
-FROM flyio/postgres-flex:16.4
+FROM flyio/postgres-flex:15.6
 ARG PG_MAJOR
 
 
