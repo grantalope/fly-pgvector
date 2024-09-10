@@ -3,19 +3,43 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'vector-media-app'
-primary_region = 'ord'
+app = "media-vector-db"
+primary_region = "ord"
+
+# Optional: set kill signal and timeout (customizable)
+kill_signal = "SIGINT"
+kill_timeout = 120
 
 [build]
 
-[[mounts]]
-  source = 'pg_data'
-  destination = '/data'
+[mounts]
+  source = "pg_data"
+  destination = "/data"
 
-[http_service]
-  internal_port = 8080
-  force_https = true
+[[services]]
+  internal_port = 5432  # Correct port for Postgres
+  protocol = "tcp"
+  autostart = true
   auto_stop_machines = true
-  auto_start_machines = true
   min_machines_running = 0
-  processes = ['app']
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 5432  # External port for Postgres
+    handlers = ["pg_tls"]  # Secure Postgres connection over TLS
+
+[resources]
+  cpu_count = 1       # 1 CPU
+  memory_mb = 1024    # 1 GB RAM
+
+[[vm]]
+  size = "shared-cpu-1x"  # Fly.io's cheapest option with 1 CPU
+  memory = "1gb"          # 1 GB memory
+  processes = ["app"]
+
+# Optional: deployment strategy, default is "rolling"
+[deploy]
+  strategy = "rolling"
+  release_command = "bin/rails db:prepare"
+  wait_timeout = "10m"  # Adjust timeout for large deployments
+
